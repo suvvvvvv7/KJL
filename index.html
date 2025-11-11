@@ -1,339 +1,174 @@
-
-
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8" />
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <title>For Kallul 💖 From Suvaaa</title>
-
 <link rel="icon" href="💗" />
-
 <style>
-
-@import url(' https://fonts.googleapis.com/css2?family=Poppins:wght@600;700italic&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700italic&display=swap');
 body {
-
-margin:0; font-family:'Poppins', sans-serif;
-
-background:linear-gradient(180deg,#f8d6ea,#e9d4ff);
-
-overflow:hidden; color:#b2427d; text-align:center;
-
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg,#f8d6ea,#e9d4ff);
+  overflow: hidden;
+  color: #b2427d;
+  text-align: center;
 }
-
-#splash, #slides {position:absolute;top:0;left:0;width:100%;height:100%;transition:opacity 1.5s;}
-
-#splash {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;}
-
-button{background:#ffc6de;border:none;border-radius:2rem;padding:1rem 2rem;
-
-font-weight:bold;color:#b2427d;cursor:pointer;box-shadow:0 0 10px #fff;}
-
-#slides{opacity:0;pointer-events:none;}
-
-.slide{display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;}
-
-.active{display:flex;}
-
-img.sticker{width:160px;margin:1rem;}
-
-.heart{position:absolute;color:#ff9acb;font-size:2rem;animation:float 6s linear infinite;}
-
-@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-120vh);opacity:0;}}
-
+#splash, #slides {position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 1.5s;}
+#splash {display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;}
+button {
+  background: #ffc6de; border: none; border-radius: 2rem;
+  padding: 1rem 2rem; font-weight: bold; color: #b2427d; cursor: pointer; box-shadow: 0 0 10px #fff;
+}
+#slides {opacity: 0; pointer-events: none;}
+.slide {display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%;}
+.active {display: flex;}
+img.sticker {width: 160px; margin: 1rem;}
+.heart {position: absolute; color: #ff9acb; font-size: 2rem; animation: float 6s linear infinite;}
+@keyframes float {0%{transform:translateY(0);}100%{transform:translateY(-120vh);opacity:0;}}
 </style>
-
 </head>
-
 <body>
-
 <div id="splash">
-
-<h2>Happy Birthday, Amorette 💕</h2>
-
-<p>Tap to open your letter</p>
-
-<button id="startBtn">💖 Open 💖</button>
-
+  <h2>Happy Birthday, Amorette 💕</h2>
+  <p>Tap to open your letter</p>
+  <button id="startBtn">💖 Open 💖</button>
 </div>
 
 <div id="slides">
-
-<div class="slide active" id="slide1">
-
-<h2>Hey Kallul 💕</h2>
-
-<p>A little surprise from your Suvaaa ✨</p>
-
-<img src="1000069445.jpg" class="sticker" />
-
-<button onclick="next()">Next ➜</button>
-
-</div>
-
-<div class="slide" id="slide2">
-
-<h3 style="max-width:80%;font-style:italic;">
-
-happy b'day amorette! it's been a year loving and living you. i don't say it much but i believe you already know it all however if i had to, i will say it a million times. i seem to have loved you in numberless forms, numberless times, in life after life, in age after age forever. with all my heart, and all my soul, i'll always keep falling in love with you. ♡ thank you for healing something life broke.
-
-</h3>
-
-<img src="1000069446.jpg" class="sticker"/>
-
-<button onclick="next()">Next ➜</button>
-
-</div>
-
-<div class="slide" id="slide3">
-
-<h2>🎂 Blow the candles 🎂</h2>
-
-<canvas id="cake" width="200" height="200"></canvas>
-
-<script>
-
-const cake = document.getElementById("cake");
-
-const ctx = cake.getContext("2d");
-
-function drawCake() {
-
-ctx.clearRect(0, 0, 200, 200);
-
-// base
-
-ctx.fillStyle = "#ffc6de";
-
-ctx.fillRect(40, 120, 120, 50);
-
-ctx.fillStyle = "#f7a3c1";
-
-ctx.fillRect(40, 120, 120, 15);
-
-// candle
-
-ctx.fillStyle = "#b2427d";
-
-ctx.fillRect(95, 70, 10, 50);
-
-}
-
-let flicker = 0;
-
-function drawFlame() {
-
-flicker = (flicker + 1) % 10;
-
-const flameHeight = 15 + Math.sin(flicker) * 3;
-
-const grd = ctx.createRadialGradient(100, 70, 0, 100, 70, 15);
-
-grd.addColorStop(0, "rgba(255,255,150,1)");
-
-grd.addColorStop(1, "rgba(255,150,0,0)");
-
-ctx.fillStyle = grd;
-
-ctx.beginPath();
-
-ctx.moveTo(100, 70);
-
-ctx.arc(100, 70, flameHeight, 0, Math.PI * 2);
-
-ctx.fill();
-
-}
-
-function animateCake() {
-
-drawCake();
-
-drawFlame();
-
-requestAnimationFrame(animateCake);
-
-}
-
-animateCake();
-
-</script>
-
-<button onclick="next()">Next ➜</button>
-
-</div>
-
-<div class="slide" id="slide4">
-
-<h2>💖 Catch the hearts! 💖</h2>
-
-<canvas id="game" width="300" height="400"></canvas>
-
-<script>
-
-const canvas = document.getElementById("game");
-
-const g = canvas.getContext("2d");
-
-let basket = { x: 120, y: 350, w: 60, h: 15 };
-
-let hearts = [];
-
-let score = 0;
-
-document.addEventListener("mousemove", (e) => {
-
-const rect = canvas.getBoundingClientRect();
-
-basket.x = e.clientX - rect.left - basket.w / 2;
-
-});
-
-function spawnHeart() {
-
-hearts.push({ x: Math.random() * 280, y: 0, r: 10 });
-
-}
-
-setInterval(spawnHeart, 800);
-
-function drawGame() {
-
-g.clearRect(0, 0, 300, 400);
-
-// hearts
-
-g.fillStyle = "#ff9acb";
-
-hearts.forEach((h) => {
-
-g.beginPath();
-
-g.moveTo(h.x, h.y);
-
-g.arc(h.x - 5, h.y, h.r, 0, Math.PI * 2);
-
-g.arc(h.x + 5, h.y, h.r, 0, Math.PI * 2);
-
-g.fill();
-
-});
-
-// basket
-
-g.fillStyle = "#b2427d";
-
-g.fillRect(basket.x, basket.y, basket.w, basket.h);
-
-// score
-
-g.fillStyle = "#fff";
-
-g.font = "16px Poppins";
-
-g.fillText("Score: " + score, 10, 20);
-
-}
-
-function updateGame() {
-
-hearts.forEach((h) => (h.y += 2));
-
-hearts = hearts.filter((h) => {
-
-if (
-
-h.y + h.r > basket.y &&
-
-h.x > basket.x &&
-
-h.x < basket.x + basket.w
-
-) {
-
-score++;
-
-return false;
-
-}
-
-return h.y < 400;
-
-});
-
-}
-
-function loop() {
-
-updateGame();
-
-drawGame();
-
-requestAnimationFrame(loop);
-
-}
-
-loop();
-
-</script>
-
-<button onclick="next()">Next ➜</button>
-
-</div>
-
-<div class="slide" id="slide5">
-
-<h2>Thank you for being my favourite feeling ❤️</h2>
-
-<p>- Suvaaa</p>
-
-</div>
-
+  <div class="slide active" id="slide1">
+    <h2>Hey Kallul 💕</h2>
+    <p>A little surprise from your Suvaaa ✨</p>
+    <img src="1000069445.jpg" class="sticker" />
+    <button onclick="next()">Next ➜</button>
+  </div>
+
+  <div class="slide" id="slide2">
+    <h3 style="max-width:80%;font-style:italic;">
+      happy b'day amorette! it's been a year loving and living you. i don't say it much but i believe you already know it all however if i had to, i will say it a million times. i seem to have loved you in numberless forms, numberless times, in life after life, in age after age forever. with all my heart, and all my soul, i'll always keep falling in love with you. ♡ thank you for healing something life broke.
+    </h3>
+    <img src="1000069446.jpg" class="sticker"/>
+    <button onclick="next()">Next ➜</button>
+  </div>
+
+  <div class="slide" id="slide3">
+    <h2>🎂 Blow the candles 🎂</h2>
+    <canvas id="cake" width="200" height="200"></canvas>
+    <button onclick="next()">Next ➜</button>
+  </div>
+
+  <div class="slide" id="slide4">
+    <h2>💖 Catch the hearts! 💖</h2>
+    <canvas id="game" width="300" height="400"></canvas>
+    <button onclick="next()">Next ➜</button>
+  </div>
+
+  <div class="slide" id="slide5">
+    <h2>Thank you for being my favourite feeling ❤️</h2>
+    <p>- Suvaaa</p>
+  </div>
 </div>
 
 <audio id="bgm" src="song.mp3" loop></audio>
 
 <script>
-
 const slides=document.querySelectorAll('.slide');
-
 let index=0;
-
-function next(){slides[index].classList.remove('active');index=(index+1)%slides.length;slides[index].classList.add('active');}
+function next(){
+  slides[index].classList.remove('active');
+  index=(index+1)%slides.length;
+  slides[index].classList.add('active');
+}
 
 document.getElementById('startBtn').onclick=()=>{
-
-document.getElementById('splash').style.opacity=0;
-
-setTimeout(()=>{document.getElementById('slides').style.opacity=1;document.getElementById('slides').style.pointerEvents='auto';},1500);
-
-document.getElementById('bgm').play();
-
+  document.getElementById('splash').style.opacity=0;
+  setTimeout(()=>{
+    document.getElementById('slides').style.opacity=1;
+    document.getElementById('slides').style.pointerEvents='auto';
+  },1500);
+  document.getElementById('bgm').play();
 };
 
+// 🎂 Cake Animation
+const cake=document.getElementById("cake");
+if(cake){
+  const ctx=cake.getContext("2d");
+  let flicker=0;
+  function drawCake(){
+    ctx.clearRect(0,0,200,200);
+    ctx.fillStyle="#ffc6de";ctx.fillRect(40,120,120,50);
+    ctx.fillStyle="#f7a3c1";ctx.fillRect(40,120,120,15);
+    ctx.fillStyle="#b2427d";ctx.fillRect(95,70,10,50);
+  }
+  function drawFlame(){
+    flicker=(flicker+1)%10;
+    const flameHeight=15+Math.sin(flicker)*3;
+    const grd=ctx.createRadialGradient(100,70,0,100,70,15);
+    grd.addColorStop(0,"rgba(255,255,150,1)");
+    grd.addColorStop(1,"rgba(255,150,0,0)");
+    ctx.fillStyle=grd;
+    ctx.beginPath();
+    ctx.arc(100,70,flameHeight,0,Math.PI*2);
+    ctx.fill();
+  }
+  function animateCake(){
+    drawCake();drawFlame();requestAnimationFrame(animateCake);
+  }
+  animateCake();
+}
+
+// 💖 Heart Game
+const canvas=document.getElementById("game");
+if(canvas){
+  const g=canvas.getContext("2d");
+  let basket={x:120,y:350,w:60,h:15};
+  let hearts=[];let score=0;
+  canvas.addEventListener("mousemove",(e)=>{
+    const rect=canvas.getBoundingClientRect();
+    basket.x=e.clientX-rect.left-basket.w/2;
+  });
+  function spawnHeart(){hearts.push({x:Math.random()*280,y:0,r:10});}
+  setInterval(spawnHeart,800);
+  function drawGame(){
+    g.clearRect(0,0,300,400);
+    g.fillStyle="#ff9acb";
+    hearts.forEach(h=>{
+      g.beginPath();
+      g.moveTo(h.x,h.y);
+      g.arc(h.x-5,h.y,h.r,0,Math.PI*2);
+      g.arc(h.x+5,h.y,h.r,0,Math.PI*2);
+      g.fill();
+    });
+    g.fillStyle="#b2427d";
+    g.fillRect(basket.x,basket.y,basket.w,basket.h);
+    g.fillStyle="#fff";
+    g.font="16px Poppins";
+    g.fillText("Score: "+score,10,20);
+  }
+  function updateGame(){
+    hearts.forEach(h=>h.y+=2);
+    hearts=hearts.filter(h=>{
+      if(h.y+h.r>basket.y && h.x>basket.x && h.x<basket.x+basket.w){
+        score++;return false;
+      }
+      return h.y<400;
+    });
+  }
+  function loop(){updateGame();drawGame();requestAnimationFrame(loop);}
+  loop();
+}
+
+// Floating hearts
 setInterval(()=>{
-
-const h=document.createElement('div');
-
-h.className='heart'; h.style.left=Math.random()*100+'vw';
-
-h.style.animationDuration=(4+Math.random()*3)+'s';
-
-h.innerHTML='💗';document.body.appendChild(h);
-
-setTimeout(()=>h.remove(),6000);
-
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=(4+Math.random()*3)+'s';
+  h.innerHTML='💗';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
 },400);
-
 </script>
-
 </body>
-
 </html>
