@@ -1,174 +1,406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For Kallul 💖 From Suvaaa</title>
-<link rel="icon" href="💗" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For Kallul — From Suvaaa 💖</title>
+<link rel="icon" href="data:,💗" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700italic&display=swap');
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg,#f8d6ea,#e9d4ff);
-  overflow: hidden;
-  color: #b2427d;
-  text-align: center;
-}
-#splash, #slides {position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 1.5s;}
-#splash {display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;}
-button {
-  background: #ffc6de; border: none; border-radius: 2rem;
-  padding: 1rem 2rem; font-weight: bold; color: #b2427d; cursor: pointer; box-shadow: 0 0 10px #fff;
-}
-#slides {opacity: 0; pointer-events: none;}
-.slide {display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%;}
-.active {display: flex;}
-img.sticker {width: 160px; margin: 1rem;}
-.heart {position: absolute; color: #ff9acb; font-size: 2rem; animation: float 6s linear infinite;}
-@keyframes float {0%{transform:translateY(0);}100%{transform:translateY(-120vh);opacity:0;}}
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+  :root{
+    --bg1:#ffd6eb; --bg2:#e8d7ff; --accent:#b2427d; --muted:#6b4a63;
+  }
+  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:#07020a;overflow:hidden;color:var(--accent)}
+  /* Sections */
+  .layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .9s,visibility .9s;visibility:hidden;opacity:0}
+  .layer.active{visibility:visible;opacity:1}
+  button{background:#ffc6de;border:none;padding:.9rem 1.6rem;border-radius:999px;color:var(--accent);font-weight:700;box-shadow:0 6px 18px rgba(139,66,112,.12);cursor:pointer}
+  /* splash/dark */
+  #splash h2,#splash p{color:#fff;margin:.3rem 0;text-align:center}
+  /* gift */
+  #giftBox{width:132px;height:112px;background:linear-gradient(180deg,#ffd6e8,#f7cbe1);border-radius:10px;position:relative;box-shadow:0 12px 30px rgba(170,60,110,.12);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  #giftBox .ribbon{position:absolute;left:50%;transform:translateX(-50%);top:-36px;font-size:40px}
+  #giftBox .stripe{position:absolute;left:50%;transform:translateX(-50%);width:12px;height:112px;background:var(--accent);border-radius:6px}
+  /* slides container */
+  #slidesWrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+  .slides{width:100%;max-width:980px;margin:0 auto;height:85vh;display:flex;align-items:center;justify-content:center;position:relative}
+  .slide{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:28px;flex-direction:column}
+  .slide.active{display:flex}
+  .sticker{width:180px;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.08);margin:12px}
+  h1{font-size:clamp(20px,3.2vw,28px);margin:0}
+  p.letter{max-width:760px;color:#4a2940;font-size:1rem;line-height:1.6;font-style:italic}
+  /* cake */
+  #cake{width:220px;height:170px;border-radius:12px;background:linear-gradient(180deg,#fff7ef,#fff0e6);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 12px 30px rgba(200,80,120,.06);margin:10px}
+  /* game area */
+  #gameArea{width:320px;max-width:92vw;height:420px;background:linear-gradient(180deg,#fff,#fff6fb);border-radius:14px;box-shadow:inset 0 1px 0 rgba(0,0,0,.03);position:relative;overflow:hidden}
+  #score{position:absolute;left:12px;top:10px;background:rgba(255,255,255,0.9);padding:6px 10px;border-radius:10px;font-weight:700;color:var(--accent)}
+  #nextBtn{margin-top:16px}
+  /* balloons */
+  .balloon{position:fixed;bottom:-120px;border-radius:50%;width:36px;height:48px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+  /* fireworks */
+  .firework{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none}
+  /* floating hearts decorative */
+  .decHeart{position:fixed;font-size:20px;opacity:.9;pointer-events:none}
+  /* responsive */
+  @media (max-width:520px){
+    .sticker{width:140px}
+    #gameArea{height:360px}
+  }
 </style>
 </head>
 <body>
-<div id="splash">
-  <h2>Happy Birthday, Amorette 💕</h2>
-  <p>Tap to open your letter</p>
-  <button id="startBtn">💖 Open 💖</button>
-</div>
 
-<div id="slides">
-  <div class="slide active" id="slide1">
-    <h2>Hey Kallul 💕</h2>
-    <p>A little surprise from your Suvaaa ✨</p>
-    <img src="1000069445.jpg" class="sticker" />
-    <button onclick="next()">Next ➜</button>
+<!-- SPLASH: dark screen -->
+<section id="splash" class="layer active" aria-hidden="false">
+  <h2>🌙 It's a little dark...</h2>
+  <p>Tap to turn on the lights and open your surprise</p>
+  <button id="turnOnBtn">💡 Turn On the Lights</button>
+</section>
+
+<!-- GIFT -->
+<section id="gift" class="layer" aria-hidden="true">
+  <h2 style="margin-bottom:8px">For my Amorette 💕</h2>
+  <p style="margin-top:0;margin-bottom:18px">Open your gift 🎁</p>
+  <div id="giftBox" aria-label="Gift box" role="button" tabindex="0">
+    <div class="stripe"></div>
+    <div class="ribbon">🎀</div>
   </div>
+</section>
 
-  <div class="slide" id="slide2">
-    <h3 style="max-width:80%;font-style:italic;">
-      happy b'day amorette! it's been a year loving and living you. i don't say it much but i believe you already know it all however if i had to, i will say it a million times. i seem to have loved you in numberless forms, numberless times, in life after life, in age after age forever. with all my heart, and all my soul, i'll always keep falling in love with you. ♡ thank you for healing something life broke.
-    </h3>
-    <img src="1000069446.jpg" class="sticker"/>
-    <button onclick="next()">Next ➜</button>
+<!-- SLIDES (letter + cake + game) -->
+<section id="slides" class="layer" aria-hidden="true">
+  <div id="slidesWrap">
+    <div class="slides">
+      <!-- SLIDE 1 -->
+      <article id="slide1" class="slide active" aria-labelledby="s1title">
+        <h1 id="s1title">Hey Kallul 💕</h1>
+        <p class="subtitle" style="color:var(--muted);margin:8px 0 6px 0">A little surprise from your Suvaaa ✨</p>
+        <img src="1000069445.jpg" alt="sticker1" class="sticker"/>
+        <button onclick="toSlide(2)">Next ➜</button>
+      </article>
+
+      <!-- SLIDE 2 - LETTER -->
+      <article id="slide2" class="slide" aria-labelledby="s2title">
+        <h1 id="s2title">A Letter</h1>
+        <p class="letter">
+          happy b'day amorette! it's been a year loving and living you.
+          i don't say it much but i believe you already know it all however if i had to, i will say it a million times.
+          i seem to have loved you in numberless forms, numberless times, in life after life, in age after age forever.
+          with all my heart, and all my soul, i'll always keep falling in love with you.
+          ♡ thank you for healing something life broke.
+        </p>
+        <img src="1000069446.jpg" alt="sticker2" class="sticker"/>
+        <button onclick="toSlide(3)">Next ➜</button>
+      </article>
+
+      <!-- SLIDE 3 - CAKE -->
+      <article id="slide3" class="slide" aria-labelledby="s3title">
+        <h1 id="s3title">🎂 Blow the candles</h1>
+        <div id="cake" aria-hidden="false"></div>
+        <p style="margin:8px 0 0 0;color:var(--muted)">Click the cake to blow candles (or just press Next)</p>
+        <button onclick="toSlide(4)">Next ➜</button>
+      </article>
+
+      <!-- SLIDE 4 - GAME -->
+      <article id="slide4" class="slide" aria-labelledby="s4title">
+        <h1 id="s4title">Catch my love 💗</h1>
+        <p style="margin:6px 0;color:var(--muted)">Catch falling hearts — click/tap or move the basket to collect</p>
+        <div id="gameArea" aria-label="heart game">
+          <div id="score">Score: <span id="scoreVal">0</span></div>
+          <canvas id="gameCanvas" width="320" height="420" style="display:block;width:100%;height:100%"></canvas>
+        </div>
+        <button id="nextBtn" disabled onclick="showFireworks()">Next ➜</button>
+      </article>
+
+    </div>
   </div>
+</section>
 
-  <div class="slide" id="slide3">
-    <h2>🎂 Blow the candles 🎂</h2>
-    <canvas id="cake" width="200" height="200"></canvas>
-    <button onclick="next()">Next ➜</button>
-  </div>
+<!-- FIREWORKS -->
+<section id="final" class="layer" aria-hidden="true">
+  <h1 style="font-style:italic">Thank you for being my favourite feeling ❤️</h1>
+  <p>- Suvaaa</p>
+</section>
 
-  <div class="slide" id="slide4">
-    <h2>💖 Catch the hearts! 💖</h2>
-    <canvas id="game" width="300" height="400"></canvas>
-    <button onclick="next()">Next ➜</button>
-  </div>
-
-  <div class="slide" id="slide5">
-    <h2>Thank you for being my favourite feeling ❤️</h2>
-    <p>- Suvaaa</p>
-  </div>
-</div>
-
-<audio id="bgm" src="song.mp3" loop></audio>
+<!-- audio (tries song.mp3 then iris.mp3) -->
+<audio id="bgm" loop preload="auto">
+  <source src="song.mp3" type="audio/mpeg">
+  <source src="iris.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const slides=document.querySelectorAll('.slide');
-let index=0;
-function next(){
-  slides[index].classList.remove('active');
-  index=(index+1)%slides.length;
-  slides[index].classList.add('active');
+/* ---------- flow control ---------- */
+const splash = document.getElementById('splash');
+const gift = document.getElementById('gift');
+const slidesLayer = document.getElementById('slides');
+const final = document.getElementById('final');
+const bgm = document.getElementById('bgm');
+
+function setActive(layer){
+  // hide all
+  [splash,gift,slidesLayer,final].forEach(x=>x.classList.remove('active'));
+  layer.classList.add('active');
 }
 
-document.getElementById('startBtn').onclick=()=>{
-  document.getElementById('splash').style.opacity=0;
-  setTimeout(()=>{
-    document.getElementById('slides').style.opacity=1;
-    document.getElementById('slides').style.pointerEvents='auto';
-  },1500);
-  document.getElementById('bgm').play();
-};
+document.getElementById('turnOnBtn').addEventListener('click', ()=>{
+  // light on visual: change background gradient
+  document.documentElement.style.setProperty('--bg1','#ffd6eb');
+  document.documentElement.style.setProperty('--bg2','#e8d7ff');
+  document.body.style.background = 'linear-gradient(160deg,var(--bg1),var(--bg2))';
+  // move to gift after small delay
+  splash.classList.remove('active');
+  gift.classList.add('active');
+  // try play music (some browsers require user gesture which turnOnBtn provides)
+  bgm.play().catch(()=>{ /* if blocked, user can press play later */ });
+});
 
-// 🎂 Cake Animation
-const cake=document.getElementById("cake");
-if(cake){
-  const ctx=cake.getContext("2d");
-  let flicker=0;
-  function drawCake(){
-    ctx.clearRect(0,0,200,200);
-    ctx.fillStyle="#ffc6de";ctx.fillRect(40,120,120,50);
-    ctx.fillStyle="#f7a3c1";ctx.fillRect(40,120,120,15);
-    ctx.fillStyle="#b2427d";ctx.fillRect(95,70,10,50);
+/* gift open -> balloons -> slides */
+const giftBox = document.getElementById('giftBox');
+giftBox.addEventListener('click', openGift);
+giftBox.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openGift(); });
+
+function openGift(){
+  // pop balloons
+  for(let i=0;i<22;i++){
+    const b = document.createElement('div');
+    b.className = 'balloon';
+    b.style.left = (10 + Math.random()*80) + 'vw';
+    b.style.background = `linear-gradient(180deg, hsl(${Math.random()*40+300},80%,85%), hsl(${Math.random()*40+300},70%,72%))`;
+    b.style.transform = `translateY(0) rotate(${Math.random()*30-15}deg)`;
+    b.style.transition = `transform ${5+Math.random()*2}s linear, opacity 3s ease`;
+    document.body.appendChild(b);
+    // animate upward using transform
+    requestAnimationFrame(()=> b.style.transform = `translateY(-120vh) rotate(${Math.random()*360}deg)`);
+    setTimeout(()=> b.remove(),7000);
   }
-  function drawFlame(){
-    flicker=(flicker+1)%10;
-    const flameHeight=15+Math.sin(flicker)*3;
-    const grd=ctx.createRadialGradient(100,70,0,100,70,15);
-    grd.addColorStop(0,"rgba(255,255,150,1)");
-    grd.addColorStop(1,"rgba(255,150,0,0)");
-    ctx.fillStyle=grd;
-    ctx.beginPath();
-    ctx.arc(100,70,flameHeight,0,Math.PI*2);
-    ctx.fill();
-  }
-  function animateCake(){
-    drawCake();drawFlame();requestAnimationFrame(animateCake);
-  }
-  animateCake();
+  gift.classList.remove('active');
+  slidesLayer.classList.add('active');
 }
 
-// 💖 Heart Game
-const canvas=document.getElementById("game");
-if(canvas){
-  const g=canvas.getContext("2d");
-  let basket={x:120,y:350,w:60,h:15};
-  let hearts=[];let score=0;
-  canvas.addEventListener("mousemove",(e)=>{
-    const rect=canvas.getBoundingClientRect();
-    basket.x=e.clientX-rect.left-basket.w/2;
-  });
-  function spawnHeart(){hearts.push({x:Math.random()*280,y:0,r:10});}
-  setInterval(spawnHeart,800);
-  function drawGame(){
-    g.clearRect(0,0,300,400);
-    g.fillStyle="#ff9acb";
-    hearts.forEach(h=>{
-      g.beginPath();
-      g.moveTo(h.x,h.y);
-      g.arc(h.x-5,h.y,h.r,0,Math.PI*2);
-      g.arc(h.x+5,h.y,h.r,0,Math.PI*2);
-      g.fill();
-    });
-    g.fillStyle="#b2427d";
-    g.fillRect(basket.x,basket.y,basket.w,basket.h);
-    g.fillStyle="#fff";
-    g.font="16px Poppins";
-    g.fillText("Score: "+score,10,20);
-  }
-  function updateGame(){
-    hearts.forEach(h=>h.y+=2);
-    hearts=hearts.filter(h=>{
-      if(h.y+h.r>basket.y && h.x>basket.x && h.x<basket.x+basket.w){
-        score++;return false;
+/* slides navigation */
+const slideEls = Array.from(document.querySelectorAll('.slide'));
+function toSlide(n){
+  // n is 1-based: 1..4
+  slideEls.forEach(s => s.classList.remove('active'));
+  const idx = n-1;
+  if(slideEls[idx]) slideEls[idx].classList.add('active');
+}
+
+/* ---------- cake (click to extinguish visual) ---------- */
+const cakeEl = document.getElementById('cake');
+if(cakeEl){
+  // create simple cake svg inside
+  cakeEl.innerHTML = `
+    <div style="font-weight:700">Happy Birthday</div>
+    <div style="display:flex;gap:8px;margin-top:12px" id="candles"></div>
+  `;
+  const candleContainer = document.getElementById('candles');
+  let candles = 5;
+  for(let i=0;i<candles;i++){
+    const c = document.createElement('div');
+    c.style.width = '10px'; c.style.height = '36px'; c.style.background='#ffd6e8'; c.style.borderRadius='6px'; c.style.position='relative'; c.style.cursor='pointer';
+    const flame = document.createElement('div');
+    flame.style.position='absolute'; flame.style.top='-12px'; flame.style.left='50%'; flame.style.transform='translateX(-50%)'; flame.style.width='12px'; flame.style.height='12px'; flame.style.borderRadius='50%';
+    flame.style.background='radial-gradient(circle at 35% 30%, #fff3, #ffd885 40%, #ff8f5a)'; flame.style.transition='opacity .18s';
+    c.appendChild(flame);
+    c.dataset.lit = '1';
+    c.addEventListener('click', ()=>{
+      if(c.dataset.lit==='0') return;
+      c.dataset.lit='0'; flame.style.opacity='0';
+      candles--;
+      if(candles<=0){
+        // small confetti burst
+        for(let i=0;i<60;i++){
+          const p = document.createElement('div');
+          p.style.position='fixed'; p.style.left = (40 + Math.random()*20) + 'vw';
+          p.style.top = (30 + Math.random()*20) + 'vh';
+          p.style.width='8px'; p.style.height='10px'; p.style.background = ['#ffd6e8','#e8d7ff','#fff2d6','#c8ffd6'][Math.floor(Math.random()*4)];
+          p.style.borderRadius='2px'; p.style.opacity='1'; p.style.transition='transform 1.8s linear, opacity 1.6s ease';
+          document.body.appendChild(p);
+          requestAnimationFrame(()=> p.style.transform = `translateY(${window.innerHeight}px) rotate(${Math.random()*360}deg)`);
+          setTimeout(()=> p.remove(),1800);
+        }
       }
-      return h.y<400;
     });
+    candleContainer.appendChild(c);
   }
-  function loop(){updateGame();drawGame();requestAnimationFrame(loop);}
-  loop();
 }
 
-// Floating hearts
+/* ---------- playable heart-catch game ---------- */
+(function(){
+  const canvas = document.getElementById('gameCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  // make canvas size match CSS resolution for crispness
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+  }
+  resize(); window.addEventListener('resize', ()=> { resize(); });
+
+  const scoreEl = document.getElementById('scoreVal');
+  const nextBtn = document.getElementById('nextBtn');
+  const target = 8; // hearts to collect to enable Next
+  let score = 0;
+  let hearts = []; // falling hearts
+
+  // basket control (mouse/touch)
+  const rect = canvas.getBoundingClientRect();
+  let basket = { x: (rect.width - 60)/2, y: (rect.height - 60)/1.15, w: 70, h: 12 };
+
+  function spawn(){
+    hearts.push({
+      x: Math.random() * (rect.width - 24) + 12,
+      y: -20,
+      vy: 0.9 + Math.random()*1.6,
+      r: 12 + Math.random()*8,
+      id: Date.now() + Math.random()
+    });
+  }
+  const spawner = setInterval(spawn, 700);
+
+  // pointer move
+  function updatePointer(x){
+    const r = canvas.getBoundingClientRect();
+    basket.x = Math.max(6, Math.min(r.width - basket.w - 6, x - r.left - basket.w/2));
+  }
+
+  // mouse
+  canvas.addEventListener('mousemove', (e)=> updatePointer(e.clientX));
+  // touch
+  canvas.addEventListener('touchmove', (e)=>{
+    if(e.touches && e.touches[0]) updatePointer(e.touches[0].clientX);
+    e.preventDefault();
+  }, {passive:false});
+  // tap hearts to collect
+  canvas.addEventListener('click', (e)=>{
+    const r = canvas.getBoundingClientRect();
+    const mx = e.clientX - r.left;
+    const my = e.clientY - r.top;
+    for(let i=hearts.length-1;i>=0;i--){
+      const h = hearts[i];
+      const dx = mx - h.x, dy = my - h.y;
+      if(Math.sqrt(dx*dx+dy*dy) < h.r + 6){
+        collect(i); break;
+      }
+    }
+  });
+
+  function collect(i){
+    hearts.splice(i,1);
+    score++;
+    scoreEl.textContent = score;
+    // pop effect
+    // show tiny heart burst
+    for(let k=0;k<6;k++){
+      const el = document.createElement('div');
+      el.className = 'decHeart';
+      el.style.left = (10 + Math.random()*80) + 'vw';
+      el.style.top = (20 + Math.random()*50) + 'vh';
+      el.style.opacity = 1; el.style.transform = `scale(${0.6+Math.random()*0.8})`;
+      el.textContent = '💗';
+      document.body.appendChild(el);
+      setTimeout(()=> el.remove(),700);
+    }
+    if(score >= target){ nextBtn.disabled = false; nextBtn.textContent = 'Next ➜'; }
+  }
+
+  function update(){
+    // advance hearts
+    hearts.forEach(h => { h.y += h.vy + 0.4; h.vy += 0.03; });
+    // collision with basket
+    for(let i=hearts.length-1;i>=0;i--){
+      const h = hearts[i];
+      if(h.y + h.r >= basket.y && h.x >= basket.x && h.x <= basket.x + basket.w){
+        collect(i);
+      } else if(h.y - h.r > canvas.getBoundingClientRect().height + 20){
+        // missed -> remove
+        hearts.splice(i,1);
+      }
+    }
+  }
+
+  function draw(){
+    const r = canvas.getBoundingClientRect();
+    // clear
+    ctx.clearRect(0,0, r.width, r.height);
+    // draw hearts
+    hearts.forEach(h=>{
+      ctx.beginPath();
+      // draw heart shape by two circles + triangle (simple)
+      ctx.fillStyle = '#ff9acb';
+      const x = h.x, y = h.y, rH = h.r;
+      ctx.beginPath();
+      ctx.arc(x - rH/3, y, rH/2, 0, Math.PI*2);
+      ctx.arc(x + rH/3, y, rH/2, 0, Math.PI*2);
+      ctx.moveTo(x - rH, y);
+      ctx.quadraticCurveTo(x, y + rH*1.3, x + rH, y);
+      ctx.fill();
+    });
+    // draw basket
+    ctx.fillStyle = '#b2427d';
+    ctx.fillRect(basket.x, basket.y, basket.w, basket.h);
+    // score text on canvas not needed (we show DOM)
+  }
+
+  function loop(){
+    update(); draw(); requestAnimationFrame(loop);
+  }
+  loop();
+
+  // helper enable Next on reaching target
+  nextBtn.disabled = true;
+  nextBtn.title = `Collect ${target} hearts to enable Next`;
+})();
+
+/* ---------- fireworks display ---------- */
+function showFireworks(){
+  // clear layers
+  slidesLayer.classList.remove('active');
+  final.classList.add('active');
+  // spawn fireworks particles
+  function spawnBurst(){
+    const count = 26;
+    const originX = (20 + Math.random()*60);
+    const originY = (20 + Math.random()*60);
+    for(let i=0;i<count;i++){
+      const f = document.createElement('div');
+      f.className = 'firework';
+      f.style.left = originX + Math.random()*20 + 'vw';
+      f.style.top = originY + Math.random()*20 + 'vh';
+      f.style.background = `hsl(${Math.random()*360},80%,70%)`;
+      f.style.opacity = 1;
+      document.body.appendChild(f);
+      (function(el){
+        el.animate([
+          { transform: 'translateY(0) scale(0)', opacity: 1 },
+          { transform: `translateY(${ - (100 + Math.random()*200)}px) scale(${1.5 + Math.random()})`, opacity: 0 }
+        ], { duration: 1200 + Math.random()*600, easing: 'ease-out' });
+        setTimeout(()=> el.remove(), 2200);
+      })(f);
+    }
+  }
+  // burst a few times
+  spawnBurst();
+  const fwInt = setInterval(spawnBurst, 1400);
+  // stop after 12s
+  setTimeout(()=> clearInterval(fwInt), 11000);
+}
+
+/* small decorative floating hearts across page */
 setInterval(()=>{
-  const h=document.createElement('div');
-  h.className='heart';
-  h.style.left=Math.random()*100+'vw';
-  h.style.animationDuration=(4+Math.random()*3)+'s';
-  h.innerHTML='💗';
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},400);
+  const el = document.createElement('div');
+  el.className = 'decHeart';
+  el.style.left = Math.random()*100 + 'vw';
+  el.style.top = Math.random()*100 + 'vh';
+  el.style.opacity = .75; el.style.fontSize = `${12 + Math.random()*18}px`;
+  el.textContent = '💗';
+  document.body.appendChild(el);
+  setTimeout(()=> el.remove(), 7000);
+}, 900);
+
 </script>
 </body>
 </html>
